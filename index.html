@@ -1,24 +1,557 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Suryaansh Jain</title>
     <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #f8f9fb;
+        --card: #ffffff;
+        --accent: #7a1c1c;
+        --muted: #5e6572;
+        --border: #e3e8f0;
+        --shadow: 0 12px 35px rgba(15, 23, 42, 0.12);
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #101116;
+          --card: #181a20;
+          --accent: #c95b5b;
+          --muted: #c5cad6;
+          --border: #272934;
+          --shadow: 0 12px 35px rgba(0, 0, 0, 0.45);
+        }
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
       body {
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        max-width: 700px;
-        margin: 40px auto;
-        padding: 0 16px;
+        font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        margin: 0;
+        background: var(--bg);
+        color: #0f172a;
+        color: rgb(15 23 42 / 0.92);
+        padding: 0 1.5rem 4rem;
       }
+
+      main,
+      header {
+        margin: 0 auto;
+        max-width: 1000px;
+      }
+
+      header {
+        padding: 4rem 0 2rem;
+      }
+
+      .eyebrow {
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        color: var(--muted);
+        margin-bottom: 0.7rem;
+      }
+
       h1 {
-        margin-bottom: 0.2em;
+        font-size: clamp(2.5rem, 4vw, 3.5rem);
+        margin: 0;
       }
-      a {
+
+      .lead {
+        font-size: 1.2rem;
+        max-width: 700px;
+        color: var(--muted);
+        line-height: 1.7;
+        margin: 1rem 0 1.5rem;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .btn {
+        border-radius: 999px;
+        padding: 0.65rem 1.4rem;
+        font-weight: 600;
+        border: 1px solid transparent;
         text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+      }
+
+      .btn.primary {
+        background: var(--accent);
+        color: #fff;
+        box-shadow: var(--shadow);
+      }
+
+      .btn.secondary {
+        border-color: var(--border);
+        color: inherit;
+        background: var(--card);
+      }
+
+      .quick-stats {
+        list-style: none;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 1rem;
+        padding: 0;
+        margin: 2rem 0 0;
+      }
+
+      .quick-stats li {
+        padding: 1.25rem;
+        border-radius: 18px;
+        background: var(--card);
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow);
+      }
+
+      .quick-stats strong {
+        display: block;
+        font-size: 1.4rem;
+        margin-bottom: 0.25rem;
+      }
+
+      section {
+        margin-top: 3.5rem;
+      }
+
+      h2 {
+        margin-bottom: 1.25rem;
+        font-size: 1.5rem;
+      }
+
+      .cards-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.25rem;
+      }
+
+      .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        padding: 1.75rem;
+        box-shadow: var(--shadow);
+      }
+
+      .card h3 {
+        margin-top: 0;
+        margin-bottom: 0.3rem;
+      }
+
+      .card .meta {
+        font-size: 0.95rem;
+        color: var(--muted);
+        margin-bottom: 0.8rem;
+      }
+
+      .card ul {
+        padding-left: 1.1rem;
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.85rem;
+        background: rgba(122, 28, 28, 0.1);
+        color: var(--accent);
+        padding: 0.15rem 0.8rem;
+        border-radius: 999px;
+        font-weight: 600;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        overflow: hidden;
+        background: var(--card);
+        box-shadow: var(--shadow);
+      }
+
+      th,
+      td {
+        padding: 0.85rem 1rem;
+        text-align: left;
+        border-bottom: 1px solid var(--border);
+      }
+
+      tr:last-child td {
+        border-bottom: none;
+      }
+
+      .list-columns {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1rem;
+      }
+
+      .list-columns ul {
+        list-style: none;
+        background: var(--card);
+        border-radius: 14px;
+        border: 1px solid var(--border);
+        padding: 1.3rem 1.5rem;
+        box-shadow: var(--shadow);
+        margin: 0;
+      }
+
+      .list-columns li + li {
+        margin-top: 0.6rem;
+      }
+
+      footer {
+        margin-top: 4rem;
+        padding: 2rem 0 0;
+        font-size: 0.9rem;
+        color: var(--muted);
+        text-align: center;
+      }
+
+      @media (max-width: 640px) {
+        header {
+          padding-top: 2.5rem;
+        }
+
+        .card,
+        .quick-stats li,
+        table,
+        .list-columns ul {
+          padding: 1.25rem;
+        }
       }
     </style>
   </head>
   <body>
-    <h1>Hi, I'm Suryaansh Jain</h1>
+    <header>
+      <p class="eyebrow">MS Student · UMass Amherst</p>
+      <h1>Suryaansh Jain</h1>
+      <p class="lead">
+        I build reliable learning systems and theoretical tools that bridge reinforcement learning,
+        representation learning, and graph algorithms. Currently pursuing an M.S. in Computer Science at
+        the University of Massachusetts Amherst after graduating from IIT Hyderabad.
+      </p>
+      <div class="hero-actions">
+        <a class="btn primary" href="mailto:suryaanshjai@umass.edu">Email Me</a>
+        <a class="btn secondary" href="https://scholar.google.com/citations?user=MkeAuCYAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">Google Scholar</a>
+        <a class="btn secondary" href="#research">Research Highlights</a>
+      </div>
+      <ul class="quick-stats">
+        <li>
+          <strong>2027</strong>
+          Expected M.S. graduation · University of Massachusetts Amherst
+        </li>
+        <li>
+          <strong>9.41/10</strong>
+          B.Tech Computer Science · IIT Hyderabad (2025)
+        </li>
+        <li>
+          <strong>2 ×</strong>
+          KVPY Fellow · OnePlus-Oppo Genius+ Scholar (Top 6 nationwide)
+        </li>
+      </ul>
+    </header>
+
+    <main>
+      <section id="education">
+        <h2>Education</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Level</th>
+              <th>Degree</th>
+              <th>Institution</th>
+              <th>Year</th>
+              <th>GPA</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Graduate</td>
+              <td>M.S. Computer Science</td>
+              <td>University of Massachusetts Amherst</td>
+              <td>2027 (expected)</td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td>Undergraduate</td>
+              <td>B.Tech Computer Science &amp; Engineering</td>
+              <td>Indian Institute of Technology Hyderabad</td>
+              <td>2025</td>
+              <td>3.91/4 · 9.41/10</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="research">
+        <div class="pill">Research Experience</div>
+        <h2>Learning, Optimization &amp; Algorithms</h2>
+        <div class="cards-grid">
+          <article class="card">
+            <h3>State Abstraction for STAR</h3>
+            <p class="meta">UMass Amherst · Advisor: Dr. Bruno Castro Da Silva · 2025</p>
+            <ul>
+              <li>Learning \(\phi\)-functions yielding reduced spaces that remain \(c\)-order Markov.</li>
+              <li>Derived theoretical guarantees and trained autoencoders to discover admissible abstractions.</li>
+              <li>Applying learned abstractions for efficient, accurate off-policy evaluation. Targeting ICML 2026.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Beyond Consensus: Mitigating Agreeableness Bias</h3>
+            <p class="meta">National University of Singapore · Advisor: Dr. Ben Leong · 2024–2025</p>
+            <ul>
+              <li>Extended LLM-judge pipelines on subjective tasks using statistical modeling.</li>
+              <li>Proposed an IRT-inspired method with latent variables to score model precision.</li>
+              <li>First-author submission to ICLR 2026.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>k-Component Connectivity Bounds</h3>
+            <p class="meta">IIT Hyderabad · Advisor: Dr. Subrahmanyam Kalyanasundaram · 2023–2024</p>
+            <ul>
+              <li>Bounded cop numbers of graphs through refined cover-size arguments.</li>
+              <li>Improved guarantees when external components stay below size \(k\).</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>FPT Algorithms for Graph Clustering</h3>
+            <p class="meta">IIT Hyderabad · 2023–2024</p>
+            <ul>
+              <li>Audited hypercube-based analyses of Independent Set formulations; discovered proof errors now fixed in print.</li>
+              <li>Extended techniques to non-binary string families.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Approximate Algorithms for p-String Problems</h3>
+            <p class="meta">IIT Kanpur · Advisor: Dr. Nitin Saxena · 2024</p>
+            <ul>
+              <li>Adapted closest-string approximations to general \(p\)-string variants.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Inter-Blockchain Communication</h3>
+            <p class="meta">Toyota-funded · Advisor: Dr. Kotaro Kataoka · 2023</p>
+            <ul>
+              <li>Linked private &amp; public chains via OTEx to track NFT and asset ownership.</li>
+              <li>Co-authored “OTEx: Ownership Transfer and Execution Protocol for Blockchain Interoperability.”</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section id="projects">
+        <div class="pill">Academic Projects</div>
+        <h2>Applied Research &amp; Course Projects</h2>
+        <div class="cards-grid">
+          <article class="card">
+            <h3>Robust Object Detection</h3>
+            <p class="meta">Computer Vision · 2025</p>
+            <ul>
+              <li>Benchmarked patch, gradient, and novel Edge-DP attacks on YOLO &amp; Faster R-CNN.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Graph Coloring with GNNs &amp; Diffusion</h3>
+            <p class="meta">Advanced Topics in DL · 2024</p>
+            <ul>
+              <li>Engineered diffusion and GNN hybrids that color 4-colorable graphs with 90%+ accuracy; extended to \(k\)-colorable cases.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Generative Recommender Systems</h3>
+            <p class="meta">Deep Learning · 2024</p>
+            <ul>
+              <li>Surveyed DiffRec, Diff4Rec, CVAE-based recommenders; proposed improvements for sequence modeling.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>RISC-V Disassembler</h3>
+            <p class="meta">Computer Architecture · 2022</p>
+            <ul>
+              <li>Built a C++ disassembler translating binary/hex machine code to RISC-V instructions.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Image Manipulation DSL</h3>
+            <p class="meta">Compilers II · 2023</p>
+            <ul>
+              <li>Designed a DSL supporting BMP drawing primitives and convolution pipelines.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Paxos &amp; Chubby Implementations</h3>
+            <p class="meta">Computer Networks · 2023</p>
+            <ul>
+              <li>Implemented Paxos and Chubby per seminal papers to study distributed coordination.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Stack Overflow Clone Backend</h3>
+            <p class="meta">Database Systems · 2023</p>
+            <ul>
+              <li>Developed Node.js + PostgreSQL backend scaling to archive-sized datasets.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Firewall &amp; Bandwidth Limiter</h3>
+            <p class="meta">Networking Club · 2023</p>
+            <ul>
+              <li>Controlled router traffic via NFQUEUE-driven C++ firewall with quota enforcement.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Wordle on Aptos Blockchain</h3>
+            <p class="meta">Inter-IIT Tech Meet · 2023</p>
+            <ul>
+              <li>Deployed Move smart contracts with custom compression to minimize on-chain storage.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Drone Motor Failure Detection</h3>
+            <p class="meta">Inter-IIT Tech Meet · 2024</p>
+            <ul>
+              <li>Trained RNNs on sensor streams and ported inference to PX4-compatible C++.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section id="internships">
+        <div class="pill">Internships</div>
+        <h2>Industry Experience</h2>
+        <div class="cards-grid">
+          <article class="card">
+            <h3>Bryt</h3>
+            <p class="meta">ML &amp; Software Engineer · 10 weeks · 2025</p>
+            <ul>
+              <li>Shipped section-name aliasing and an LLM-powered support assistant touching 100+ code files.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Crow Canyon Systems</h3>
+            <p class="meta">ML &amp; Software Engineer · 4 weeks · 2023</p>
+            <ul>
+              <li>Built RAG pipelines with LangChain, LangGraph, and custom orchestration for PDF knowledge bases.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section id="skills">
+        <div class="pill">Technical Skills</div>
+        <h2>Tools &amp; Languages</h2>
+        <div class="list-columns">
+          <ul>
+            <li><strong>Programming:</strong> C++, C, Python, Java, Bash, Sed, Awk, Solidity, Move, Rust, Dart, ROS</li>
+            <li><strong>Web:</strong> JavaScript, Flutter, Express, Bootstrap, aiosql, Django, FastAPI, sockets</li>
+            <li><strong>Libraries:</strong> NumPy, Matplotlib, PyTorch, Pandas, TensorFlow, SpaCy, NLTK, SciPy, scikit-learn, OpenAI, Streamlit, OpenCV, CUDA, Docker, OpenGL, CLIP, Diffusers, LangChain, LangGraph</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="courses">
+        <div class="pill">Coursework</div>
+        <h2>Selected Courses</h2>
+        <div class="list-columns">
+          <ul>
+            <li>Theory of Computation</li>
+            <li>Discrete Math</li>
+            <li>Foundations of Machine Learning</li>
+            <li>Compilers</li>
+            <li>Database Systems</li>
+            <li>Computer Networks</li>
+            <li>Operating Systems</li>
+            <li>Computer Architecture</li>
+            <li>Linear Optimization</li>
+            <li>Game Theory &amp; Mechanism Design</li>
+            <li>Deep Learning</li>
+            <li>Spectral Graph Theory</li>
+            <li>Convex Optimization</li>
+            <li>Reinforcement Learning</li>
+            <li>Cryptology</li>
+            <li>Quantum Computing</li>
+            <li>Advanced Topics in DL</li>
+            <li>Computer Vision</li>
+            <li>Communication Complexity</li>
+            <li>Approximate Algorithms</li>
+            <li>Topics in Combinatorics</li>
+            <li>Calculus, Linear Algebra, Probability &amp; Statistics</li>
+          </ul>
+          <ul>
+            <li>Information Theory</li>
+            <li>Transform Techniques</li>
+            <li>Advanced Topics in ML (Graduate)</li>
+            <li>Reinforcement Learning (Graduate)</li>
+            <li>Complexity Theory (Graduate)</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="achievements">
+        <div class="pill">Honors</div>
+        <h2>Scholastic Achievements</h2>
+        <div class="list-columns">
+          <ul>
+            <li>OnePlus-Oppo Genius+ Scholar (Top 6 nationally) · 2022</li>
+            <li>JEE Advanced All India Rank 311 (out of 155k) · 2021</li>
+            <li>JEE Main All India Rank 458 (out of 1M) · 2021</li>
+            <li>Dual KVPY Fellowship awardee · 2019 &amp; 2020</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="olympiads">
+        <div class="pill">Olympiads</div>
+        <h2>Competitive Highlights</h2>
+        <div class="list-columns">
+          <ul>
+            <li>Top 60 Orientation Camp select for IChO · AIR 27 · 2021</li>
+            <li>State topper · National Science Examination in Physics · 2021</li>
+            <li>Top 300 qualifier for InPhO (IPhO) · 2020</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="extracurriculars">
+        <div class="pill">Leadership &amp; Service</div>
+        <h2>Extracurriculars</h2>
+        <div class="list-columns">
+          <ul>
+            <li>Teaching Assistant · Information Theory, Theory of Computation (2024–2025)</li>
+            <li>Represented IIT Hyderabad at Inter-IIT Tech Meet (Bombay 2024, Madras 2023)</li>
+            <li>Head of Web Development, Milan Fest · 2024</li>
+            <li>Math Bowl (CMI) · 3rd Place · 2024</li>
+            <li>Gold · Milan Robotics &amp; Web Dev Contests · 2023</li>
+            <li>Bronze · Milan Web Dev Contest · 2022</li>
+            <li>Member · Software Development Club (Lambda) &amp; Networking Club (Kludge)</li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      © <span id="year"></span> Suryaansh Jain · suryaanshjai@umass.edu · suryaansh2003@gmail.com · <a href="https://github.com/srynsh">@srynsh</a>
+    </footer>
+
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
   </body>
 </html>
