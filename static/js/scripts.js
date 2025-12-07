@@ -40,7 +40,7 @@ if (navToggle && navLinks) {
 }
 
 function sendEmail() {
-  const email = "suryaanshjai@umass.edu";
+  const email = "tejalk00@gmail.com";
   window.location.href = `mailto:${email}`;
 }
 

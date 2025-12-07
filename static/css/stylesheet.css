@@ -448,6 +448,12 @@ img {
   transition: opacity 0.3s ease;
 }
 
+/* Additional spacing for headings if needed
+.section-heading {
+  margin-bottom: 30px;
+  margin-top: 40px;
+} */
+
 .section-heading {
   position: relative;
   display: inline-flex;
